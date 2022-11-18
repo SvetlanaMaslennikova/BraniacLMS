@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'social_django',
+
+    'authapp',
     'mainapp',
 ]
 
@@ -49,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -56,14 +61,20 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            "templates"
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -118,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
@@ -126,3 +138,28 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'authapp.User'
+LOGIN_REDIRECT_URL = 'mainapp:index'
+LOGOUT_REDIRECT_URL = 'mainapp:index'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GITHUB_KEY = '21c2574b01bf1ba272f0'
+SOCIAL_AUTH_GITHUB_SECRET = 'd5ab4d25ee71a963aaad4e9b9b774a7fc364faea'
+
+SOCIAL_AUTH_VK_KEY = '51480047'
+SOCIAL_AUTH_VKONTAKTE_KEY = SOCIAL_AUTH_VK_KEY
+SOCIAL_AUTH_VK_SECRET = 'itq3sZbtpTmijghfUTTD'
+SOCIAL_AUTH_VKONTAKTE_SECRET = SOCIAL_AUTH_VK_SECRET
+
