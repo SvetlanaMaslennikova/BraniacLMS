@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms',
     'social_django',
 
     'authapp',
@@ -61,9 +62,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            "templates"
-        ],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -163,3 +162,4 @@ SOCIAL_AUTH_VKONTAKTE_KEY = SOCIAL_AUTH_VK_KEY
 SOCIAL_AUTH_VK_SECRET = 'itq3sZbtpTmijghfUTTD'
 SOCIAL_AUTH_VKONTAKTE_SECRET = SOCIAL_AUTH_VK_SECRET
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
