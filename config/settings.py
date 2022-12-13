@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -17,7 +16,6 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -31,11 +29,10 @@ ALLOWED_HOSTS = ['*']
 
 ENV_TYPE = os.getenv('ENV_TYPE', 'prod')
 
-if DEBUG:
-    INTERNAL_IPS = [
-        '127.0.0.1'
-    ]
-
+# if DEBUG:
+#     INTERNAL_IPS = [
+#         '127.0.0.1'
+#     ]
 
 # Application definition
 
@@ -48,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms',
-    'debug_toolbar',
     'social_django',
 
     'authapp',
@@ -64,8 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'social_django.middleware.SocialAuthExceptionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
@@ -83,7 +77,6 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
@@ -93,10 +86,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 if ENV_TYPE == 'local':
     DATABASES = {
         'default': {
@@ -112,7 +103,6 @@ else:
             'USER': 'postgres'
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -132,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -144,12 +133,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
 if ENV_TYPE == 'local':
     STATICFILES_DIRS = [
         BASE_DIR / 'static',
@@ -204,28 +191,28 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'emails-tmp'
 
-LOG_FILE = BASE_DIR / "log" / "main_log.log"
-
-LOGGING = {
-    "version": 1,
-    "disable_exiting_loggers": False,
-    "formatters": {
-        "console": {
-            "format": "[%(asctime)s] %(levelname)s %(name)s (%(lineno)d)%(message)s"
-        },
-    },
-    "handlers": {
-        "file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": LOG_FILE,
-            "formatter": "console",
-        },
-        "console": {"class": "logging.StreamHandler", "formatter": "console"},
-    },
-    "loggers": {
-        "django": {"level": "INFO", "handlers": ["file", "console"]},
-    },
-}
+# LOG_FILE = BASE_DIR / "log" / "main_log.log"
+#
+# LOGGING = {
+#     "version": 1,
+#     "disable_exiting_loggers": False,
+#     "formatters": {
+#         "console": {
+#             "format": "[%(asctime)s] %(levelname)s %(name)s (%(lineno)d)%(message)s"
+#         },
+#     },
+#     "handlers": {
+#         "file": {
+#             "level": "INFO",
+#             "class": "logging.FileHandler",
+#             "filename": LOG_FILE,
+#             "formatter": "console",
+#         },
+#         "console": {"class": "logging.StreamHandler", "formatter": "console"},
+#     },
+#     "loggers": {
+#         "django": {"level": "INFO", "handlers": ["file", "console"]},
+#     },
+# }
 
 LOCALE_PATHS = [BASE_DIR / 'locale']
