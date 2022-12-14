@@ -215,4 +215,5 @@ EMAIL_FILE_PATH = 'emails-tmp'
 #     },
 # }
 
+
 LOCALE_PATHS = [BASE_DIR / 'locale']
